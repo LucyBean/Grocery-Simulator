@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=width\ height
+comment0.target=InteractZone(int,\ int)
+comment1.params=p
+comment1.target=void\ interact(Player)
+comment2.params=c
+comment2.target=void\ interact(Customer)
+numComments=3

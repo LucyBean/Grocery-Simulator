@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=dir
+comment0.target=Direction(Point)
+comment1.params=
+comment1.target=Point\ asCoOrd()
+comment2.params=
+comment2.target=int\ getX()
+comment3.params=
+comment3.target=int\ getY()
+comment4.params=
+comment4.target=Direction\ opposite()
+numComments=5

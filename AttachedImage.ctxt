@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=offset
+comment0.target=AttachedImage(Point)
+comment1.params=img\ offset
+comment1.target=AttachedImage(greenfoot.GreenfootImage,\ Point)
+comment2.params=img
+comment2.target=void\ setImage(greenfoot.GreenfootImage)
+comment3.params=
+comment3.target=Point\ getOffset()
+numComments=4

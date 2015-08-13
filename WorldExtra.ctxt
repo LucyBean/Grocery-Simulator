@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.params=
+comment0.target=WorldExtra()
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ WorldExtra.\r\n\ \r\n
+comment1.params=add\ at
+comment1.target=void\ addObject(greenfoot.Actor,\ greenfoot.Actor)
+comment2.params=d\ amount
+comment2.target=void\ scroll(Direction,\ int)
+comment3.params=c\ x\ y
+comment3.target=void\ addObject(Customer,\ int,\ int)
+comment4.params=a
+comment4.target=void\ removeObject(CollidingActor)
+comment5.params=a
+comment5.target=void\ removeObject(ActorExtra)
+comment6.params=c
+comment6.target=void\ addObject(Countdown)
+comment7.params=
+comment7.target=int\ getCustomerCount()
+numComments=8

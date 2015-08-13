@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=p\ max
+comment0.target=StatBar(Point,\ int)
+comment1.params=current
+comment1.target=void\ update(int)
+comment2.params=
+comment2.target=void\ draw()
+numComments=3

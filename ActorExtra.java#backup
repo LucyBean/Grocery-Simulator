@@ -1,0 +1,210 @@
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Iterator;
+/**
+ * Write a description of class ActorExtra here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public abstract class ActorExtra extends Actor
+{
+    Collider collider;
+    Point colliderPoint;
+    List<AttachedImage> images = new LinkedList<AttachedImage>();
+
+    /**
+     * Position for collider relative to actor's centre
+     */
+    public void setCollider(Collider c, Point p) {
+        collider = c;
+        colliderPoint = p;
+    }
+
+    public WorldExtra getWorld() {
+        return (WorldExtra) super.getWorld();
+    }
+    
+    public void addedToWorld(World w) {
+        if (collider != null) {
+            w.addObject(collider, getX() + colliderPoint.x, getY() + colliderPoint.y);
+        }
+    }
+
+    public void resizeImage(double scale) {
+        GreenfootImage img = this.getImage();
+        img.scale((int) (img.getWidth() * scale),
+            (int) (img.getHeight() * scale));
+        this.setImage(img);
+    }
+
+    public boolean atEdge(Direction d, int tolerance) {
+        switch (d) {
+            case UP: return atTop(tolerance);
+            case DOWN: return atBottom(tolerance);
+            case LEFT: return atLeft(tolerance);
+            case RIGHT: return atRight(tolerance);
+            default: return false;
+        }
+    }
+
+    public boolean atEdge(Direction d) { return atEdge(d, 5); }
+
+    public boolean atLeft(int tolerance) { return getX() < tolerance; }
+
+    public boolean atRight(int tolerance) { return getX() >= getWorld().getWidth() - tolerance; }
+
+    public boolean atTop(int tolerance) { return getY() < tolerance; }
+
+    public boolean atBottom(int tolerance) { return getY() >= getWorld().getHeight() - tolerance; }
+
+    public boolean atLeft() { return atLeft(5); }
+
+    public boolean atRight() { return atRight(5); }
+
+    public boolean atTop() { return atTop(5); }
+
+    public boolean atBottom() { return atBottom(5); }
+
+    public boolean atEdge(int tolerance) { return atLeft(5) || atRight(5) || atTop(5) || atBottom(5); }
+
+    public boolean atEdge() { return atEdge(5); }
+
+    public void turnTowards(Actor a) {
+        turnTowards(a.getX(), a.getY());
+    }
+    
+    protected Actor getOneObjectAtEdge(Direction d, java.lang.Class filter) {
+        if(collider == null) return null;
+
+        Point start = null;
+        Point end = null;
+
+        switch(d) {
+            case DOWN:
+            //for each cell in the strip of cells immediately below
+            //the player
+            //get the bottom left and right co-ords of the collider
+            start = collider.bottomLeft();
+            end = collider.bottomRight();
+
+            //look at the strip below
+            start.y++;
+            end.y++;
+            break;
+
+            case UP:
+            start = collider.topLeft();
+            end = collider.topRight();
+            start.y--;
+            end.y--;
+            break;
+
+            case LEFT:
+            start = collider.topLeft();
+            end = collider.bottomLeft();
+            start.x--;
+            end.x--;
+            break;
+
+            case RIGHT:
+            start = collider.topRight();
+            end = collider.bottomRight();
+            start.x++;
+            end.x++;
+            break;
+        }
+
+        if(start == null || end == null) return null;
+
+        for(int x = start.x; x <= end.x; x++) {
+            for(int y = start.y; y <= end.y; y++) {
+                Collider c = (Collider) getOneObjectAtOffset(x - getX(), y - getY(), Collider.class);
+                if(c != null) {
+                    Actor a = c.getAssociatedActor();
+                    if(filter == null) return a;
+                    if(filter.isInstance(a)) return a;
+                }
+            }
+        }
+
+        return null;
+    }
+    
+    protected boolean isObjectAtEdge(Direction d, java.lang.Class cls) {
+        return (getOneObjectAtEdge(d, cls) != null);
+    }
+
+    /**
+     * Uses precise collision checking if a collider is attached to determine whether
+     * there is an object in the immediate neighbour column/row in the specified direction.
+     */
+    protected boolean isObjectAtEdge(Direction d) {
+        return isObjectAtEdge(d, null);
+    }
+
+    public void moveUp(int amount) { move(Direction.UP, amount); }
+
+    public void moveDown(int amount) { move(Direction.DOWN, amount); }
+
+    public void moveLeft(int amount) { move(Direction.LEFT, amount); }
+
+    public void moveRight(int amount) { move(Direction.RIGHT, amount); }
+
+    /**
+     * Uses precise collision checking if a collider object is attached.
+     */
+    public void move(Direction d, int amount) {
+        //flip the direction and amount if negative amount passed
+        if(amount < 0) {
+            d = d.opposite();
+            amount *= -1;
+        }
+
+        if(collider == null) {
+            setLocation(getX() + d.getX() * amount, getY() + d.getY() * amount);
+        } else {
+
+            for(int i = 0; i < amount; i++) {
+                //check for an object in the strip in the given direction
+                boolean canMove = !isObjectAtEdge(d);
+
+                //if there is no object at the edge, move into it, else exit
+                if(canMove) {
+                    setLocation(getX() + d.getX(), getY() + d.getY());
+                } else return;
+            }
+        }
+    }
+
+    public void setLocation(Point p) {
+        setLocation(p.x, p.y);
+    }
+    
+    @Override
+    public void setLocation(int x, int y) {
+        super.setLocation(x, y);
+        if (collider != null) collider.setLocation(x + colliderPoint.x, y + colliderPoint.y);
+        Iterator<AttachedImage> i = images.iterator();
+        while(i.hasNext()) {
+            AttachedImage img = i.next();
+        }
+    }
+    
+    public void moveTowards(Actor target, int amount) {
+        int dY = target.getY() - getY();
+        int dX = target.getX() - getX();
+        
+        double distance = Math.sqrt(dY * dY + dX * dX);
+        
+        //ignore small distances
+        if(distance <= 0.1) return;
+        
+        double dx = dX * amount / distance;
+        double dy = dY * amount / distance;    
+        
+        move(Direction.RIGHT, (int)dx);
+        move(Direction.DOWN, (int)dy);
+    }
+}

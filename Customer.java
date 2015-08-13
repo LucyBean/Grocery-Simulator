@@ -13,6 +13,8 @@ public class Customer extends CollidingActor
     AttachedImage stateImg;
     Mood happiness;
     CustomerState currentState;
+    
+    boolean waiting;
 
     Target t;
 
@@ -42,6 +44,7 @@ public class Customer extends CollidingActor
      */
     public void setState(CustomerState s) {
         currentState = s;
+        waiting = false;
         
         stateImg.setImage(new GreenfootImage(currentState.getAbbrev(), 20,
                 Color.WHITE, new Color(0,0,0,0)));
@@ -50,23 +53,26 @@ public class Customer extends CollidingActor
     public CustomerState getState() {
         return currentState;
     }
+    
+    public void startWaiting() {
+        waiting = true;
+    }
+    
+    public boolean isWaiting() {
+        return waiting;
+    }
 
     public void act() 
     {
         if(t != null) {
             moveTowards(t, walkSpeed);
-
-            if(intersects(t)) {
-                t = t.getNext(currentState);
-            }
+            if(intersects(t)) t = t.getNext(currentState);
         }
 
         InteractZone iz = (InteractZone) getOneIntersectingObject(InteractZone.class);
-        if(iz != null) {
-            iz.interact(this);
-        }      
+        if(iz != null) iz.interact(this);      
         
-        happiness.setVal(happiness.getVal() - 1);
+        if(waiting) happiness.decrement();
     }
     
     /*
@@ -81,7 +87,10 @@ public class Customer extends CollidingActor
         boolean isCustomer = false;
         if(c != null
                 && currentState != CustomerState.LEAVING
-                && c.getState() == currentState) isCustomer = true;
+                && c.getState() == currentState) {
+                    isCustomer = true;
+                    if(c.isWaiting()) startWaiting();
+                }
         
         return isWall || isCustomer;
     }
@@ -111,6 +120,16 @@ class Mood {
         if(val > max) val = max;
         moodVal = val;
         
+        bar.update(moodVal);
+    }
+    
+    public void decrement() {
+        if(moodVal > 0) moodVal--;
+        bar.update(moodVal);
+    }
+    
+    public void increment() {
+        if(moodVal < max) moodVal++;
         bar.update(moodVal);
     }
 }

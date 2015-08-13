@@ -11,11 +11,11 @@ public class PayingZone extends InteractZone
     public PayingZone() {
         super(40, 40);
     }
-
+    
     @Override
-    public void interact(Customer c) {
-        if(c.getState() == CustomerState.PAYING) {
-            c.setState(CustomerState.LEAVING);
-        }
-    }
+            public void interact(Customer c) {
+                if(c.getState() == CustomerState.PAYING) {
+                    c.setState(CustomerState.LEAVING);
+                }
+            }
 }

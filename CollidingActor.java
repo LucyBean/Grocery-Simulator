@@ -90,6 +90,10 @@ public abstract class CollidingActor extends ActorExtra
 
         if(start == null || end == null) return null;
 
+        /*
+         * This code uses precise collision checking to check every point along the edge of
+         * the CollidingActor.
+         */
         for(int x = start.x; x <= end.x; x++) {
             for(int y = start.y; y <= end.y; y++) {
                 Collider c = (Collider) getOneObjectAtOffset(x - getX(), y - getY(), Collider.class);

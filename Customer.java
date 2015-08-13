@@ -13,8 +13,7 @@ public class Customer extends CollidingActor
     AttachedImage stateImg;
     Status happiness;
     CustomerState currentState;
-    
-    boolean waiting;
+    CustomerBusyState currentBusyState = CustomerBusyState.NONE;
 
     Target t;
 
@@ -30,9 +29,8 @@ public class Customer extends CollidingActor
         setState(CustomerState.BUYING);
         attach(stateImg);
         
-        StatBar happinessBar = new StatBar(100);
-        happiness =  new Status(100, happinessBar);
-        attach(happinessBar, new Point(0, -40));
+        happiness =  new Status(100);
+        attach(happiness.getStatBar(), new Point(0, -40));
 
         t = initial;
 
@@ -44,7 +42,7 @@ public class Customer extends CollidingActor
      */
     public void setState(CustomerState s) {
         currentState = s;
-        waiting = false;
+        currentBusyState = CustomerBusyState.NONE;
         
         stateImg.setImage(new GreenfootImage(currentState.getAbbrev(), 20,
                 Color.WHITE, new Color(0,0,0,0)));
@@ -55,24 +53,32 @@ public class Customer extends CollidingActor
     }
     
     public void startWaiting() {
-        waiting = true;
+        currentBusyState = CustomerBusyState.WAITING;
+    }
+    
+    public void startInteracting() {
+        currentBusyState = CustomerBusyState.INTERACTING;
+    }
+    
+    public boolean isBusy() {
+        return (currentBusyState != CustomerBusyState.NONE);
     }
     
     public boolean isWaiting() {
-        return waiting;
+        return (currentBusyState == CustomerBusyState.WAITING);
     }
 
     public void act() 
     {
         if(t != null) {
             moveTowards(t, walkSpeed);
-            if(!isWaiting() && intersects(t)) t = t.getNext(currentState);
+            if(!isBusy() && intersects(t)) t = t.getNext(currentState);
         }
 
         InteractZone iz = (InteractZone) getOneIntersectingObject(InteractZone.class);
         if(iz != null) iz.interact(this);
         
-        if(waiting) happiness.decrement();
+        if(isWaiting()) happiness.decrement();
     }
     
     /*
@@ -89,7 +95,7 @@ public class Customer extends CollidingActor
                 && currentState != CustomerState.LEAVING
                 && c.getState() == currentState) {
                     isCustomer = true;
-                    if(c.isWaiting()) startWaiting();
+                    if(c.isBusy()) startWaiting();
                 }
         
         return isWall || isCustomer;

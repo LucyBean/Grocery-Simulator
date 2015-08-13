@@ -16,14 +16,17 @@ public class PayingZone extends InteractZone
      * @param tillZone Associated TillZone
      */
     public PayingZone(TillZone tillZone) {
-        super(40, 40);
+        super(20, 40);
         t = tillZone;
     }
 
     @Override
     public void interact(Customer c) {
         if(c.getState() == CustomerState.PAYING) {
-            if(t.manned()) c.setState(CustomerState.LEAVING);
+            if(t.manned()) {
+                c.startInteracting();
+                getWorld().getPlayer().checkOut(c);
+            }
             else c.startWaiting();
         }
     }

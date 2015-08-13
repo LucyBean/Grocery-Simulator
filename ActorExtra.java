@@ -24,9 +24,14 @@ public abstract class ActorExtra extends Actor
     }
     
     public void attach(AttachedImage ai) {
-        images.add(ai);
+        if(!images.contains(ai)) images.add(ai);
         
         if(getWorld() != null) addImagesToWorld();
+    }
+    
+    public void detach(AttachedImage ai) {
+        images.remove(ai);
+        if(ai.getWorld() != null) ai.getWorld().removeObject(ai);
     }
     
     public List<AttachedImage> getImages() {

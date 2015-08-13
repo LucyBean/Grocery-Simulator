@@ -10,6 +10,7 @@ import java.util.Iterator;
 public abstract class WorldExtra extends World
 {
     int numberOfCustomers;
+    Player player = new Player();
     
     /**
      * Constructor for objects of class WorldExtra.
@@ -19,6 +20,14 @@ public abstract class WorldExtra extends World
     {            
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1, false);
+    }
+    
+    public Player getPlayer() {
+        return player;
+    }
+    
+    protected void addPlayer() {
+        addObject(player, 300, 200);
     }
     
     public void addObject(Actor add, Actor at) {

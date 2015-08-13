@@ -6,18 +6,22 @@ class Status {
     /**
      * Creates a new Status, initially at max/max.
      */
-    public Status(int max, StatBar bar) {
-        this(max, max, bar);
+    public Status(int max) {
+        this(max, max);
     }
     
-    public Status(int max, int init, StatBar bar) {
+    public Status(int max, int init) {
         this.max = max;
-        this.bar = bar;
+        this.bar = new StatBar(max);
         setVal(init);
     }
     
     public int getVal() {
         return statVal;
+    }
+    
+    public StatBar getStatBar() {
+        return bar;
     }
     
     public void setVal(int val) {

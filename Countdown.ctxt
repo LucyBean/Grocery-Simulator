@@ -5,4 +5,6 @@ comment1.params=num
 comment1.target=void\ countFrom(int)
 comment2.params=
 comment2.target=boolean\ isFinished()
-numComments=3
+comment3.params=
+comment3.target=int\ getVal()
+numComments=4

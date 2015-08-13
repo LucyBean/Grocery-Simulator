@@ -1,15 +1,17 @@
 #BlueJ class context
-comment0.params=max\ bar
-comment0.target=Status(int,\ StatBar)
+comment0.params=max
+comment0.target=Status(int)
 comment0.text=\r\n\ Creates\ a\ new\ Status,\ initially\ at\ max/max.\r\n
-comment1.params=max\ init\ bar
-comment1.target=Status(int,\ int,\ StatBar)
+comment1.params=max\ init
+comment1.target=Status(int,\ int)
 comment2.params=
 comment2.target=int\ getVal()
-comment3.params=val
-comment3.target=void\ setVal(int)
-comment4.params=
-comment4.target=void\ decrement()
+comment3.params=
+comment3.target=StatBar\ getStatBar()
+comment4.params=val
+comment4.target=void\ setVal(int)
 comment5.params=
-comment5.target=void\ increment()
-numComments=6
+comment5.target=void\ decrement()
+comment6.params=
+comment6.target=void\ increment()
+numComments=7

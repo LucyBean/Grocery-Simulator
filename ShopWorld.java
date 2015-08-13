@@ -36,7 +36,7 @@ public class ShopWorld extends WorldExtra
         LeavingZone leavingZone = new LeavingZone();
 
         addObject(buyingZone, 460, 290);
-        addObject(payingZone, 170, 345);
+        addObject(payingZone, 160, 345);
         addObject(tillZone, 100, 385);
         addObject(leavingZone, 300, 30);
 
@@ -45,7 +45,8 @@ public class ShopWorld extends WorldExtra
         for(int i = 0; i < 8; i++) {
             addObject(new Customer(targets[1]), 300, 15);
         }
-        addObject(new Player(), 300, 200);
+        
+        addPlayer();
     }
 
     private void prepTargets() {

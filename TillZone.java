@@ -17,6 +17,6 @@ public class TillZone extends InteractZone
     }
     
     public boolean manned() {
-        return (getOneObjectAtOffset(0,0,Player.class) != null);
+        return (getOneObjectAtOffset(0,-10,Player.class) != null);
     }
 }

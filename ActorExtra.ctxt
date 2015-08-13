@@ -1,7 +1,7 @@
 #BlueJ class context
-comment0.params=i
-comment0.target=void\ attach(AttachedImage)
-comment0.text=\r\n\ Attaches\ a\ new\ AttachedImage\ object\ to\ this\ ActorExtra,\ allowing\ it\ to\ follow\ the\r\n\ ActorExtra\ around\ the\ world.\r\n\ \r\n\ @param\ i\ The\ AttachedImage\ to\ be\ attached.\r\n
+comment0.params=i\ p
+comment0.target=void\ attach(greenfoot.GreenfootImage,\ Point)
+comment0.text=\r\n\ Attaches\ a\ new\ AttachedImage\ object\ to\ this\ ActorExtra,\ allowing\ it\ to\ follow\ the\r\n\ ActorExtra\ around\ the\ world.\r\n\ \r\n\ @param\ i\ The\ AttachedImage\ to\ be\ attached.\r\n\ @param\ p\ The\ offset\ relative\ to\ the\ ActorExtra's\ centre.\r\n
 comment1.params=
 comment1.target=java.util.List\ getImages()
 comment10.params=tolerance

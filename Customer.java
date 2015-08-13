@@ -10,8 +10,8 @@ public class Customer extends CollidingActor
 {    
     final int walkSpeed = 2;
     
-    AttachedImage stateImg;
-    Mood happiness;
+    GreenfootImage stateImg;
+    Status happiness;
     CustomerState currentState;
     
     boolean waiting;
@@ -26,13 +26,12 @@ public class Customer extends CollidingActor
         img.drawRect(0,0, 39, 99);
         setImage(img);
         
-        stateImg = new AttachedImage(new Point(0,-10));
         setState(CustomerState.BUYING);
-        attach(stateImg);
+        attach(stateImg, new Point(0,-10));
         
-        StatBar happinessBar = new StatBar(new Point(0, -40), 100);
-        happiness =  new Mood(100, happinessBar);
-        attach(happinessBar);
+        StatBar happinessBar = new StatBar(100);
+        happiness =  new Status(100, happinessBar);
+        attach(happinessBar, new Point(0, -40));
 
         t = initial;
 
@@ -46,8 +45,8 @@ public class Customer extends CollidingActor
         currentState = s;
         waiting = false;
         
-        stateImg.setImage(new GreenfootImage(currentState.getAbbrev(), 20,
-                Color.WHITE, new Color(0,0,0,0)));
+        stateImg = new GreenfootImage(currentState.getAbbrev(), 20,
+                Color.WHITE, new Color(0,0,0,0));
     }
 
     public CustomerState getState() {
@@ -96,40 +95,3 @@ public class Customer extends CollidingActor
     }
 }
 
-class Mood {
-    int moodVal;
-    final int max;
-    StatBar bar;
-    
-    public Mood(int max, StatBar bar) {
-        this(max, max, bar);
-    }
-    
-    public Mood(int max, int init, StatBar bar) {
-        this.max = max;
-        this.bar = bar;
-        setVal(init);
-    }
-    
-    public int getVal() {
-        return moodVal;
-    }
-    
-    public void setVal(int val) {
-        if(val < 0) val = 0;
-        if(val > max) val = max;
-        moodVal = val;
-        
-        bar.update(moodVal);
-    }
-    
-    public void decrement() {
-        if(moodVal > 0) moodVal--;
-        bar.update(moodVal);
-    }
-    
-    public void increment() {
-        if(moodVal < max) moodVal++;
-        bar.update(moodVal);
-    }
-}

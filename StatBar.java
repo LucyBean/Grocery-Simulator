@@ -6,13 +6,13 @@ import java.awt.Color;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class StatBar extends AttachedImage
+public class StatBar extends GreenfootImage
 {
     final int max;
     int current;
 
-    public StatBar(Point p, int max) {
-        super(p);
+    public StatBar(int max) {
+        super(30, 10);
         this.max = max;
         current = max;
 
@@ -33,9 +33,8 @@ public class StatBar extends AttachedImage
         double m = max;
         double fillFrac = c / m;
 
-        GreenfootImage img = new GreenfootImage(width,height);
-        img.setColor(Color.BLACK);
-        img.fill();
+        setColor(Color.BLACK);
+        fill();
 
         /*
          * Causes the fillColor to transition linearly from Green -> Yellow -> Red, with
@@ -61,12 +60,10 @@ public class StatBar extends AttachedImage
 
         int barWidth = (int) (fillFrac * width);
 
-        img.setColor(fillColor);
-        img.fillRect(0, 0, barWidth, height);
+        setColor(fillColor);
+        fillRect(0, 0, barWidth, height);
 
-        img.setColor(Color.WHITE);
-        img.drawRect(0, 0, width - 1, height - 1);
-
-        setImage(img);
+        setColor(Color.WHITE);
+        drawRect(0, 0, width - 1, height - 1);
     }
 }

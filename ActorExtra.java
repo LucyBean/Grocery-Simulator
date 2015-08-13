@@ -17,9 +17,10 @@ public abstract class ActorExtra extends Actor
      * ActorExtra around the world.
      * 
      * @param i The AttachedImage to be attached.
+     * @param p The offset relative to the ActorExtra's centre.
      */
-    public void attach(AttachedImage i) {
-        images.add(i);
+    public void attach(GreenfootImage i, Point p) {
+        images.add(new AttachedImage(i, p));
 
         if(getWorld() != null) {
             addImagesToWorld();

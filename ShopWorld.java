@@ -16,56 +16,34 @@ public class ShopWorld extends WorldExtra
      */
     public ShopWorld()
     {    
+        //Top wall
         addObject(new NoWalkZone(200, 120), 100, 60);
         addObject(new NoWalkZone(200, 120), 500, 60);
+        
+        //Shelves
         addObject(new NoWalkZone(200, 100), 140, 220);
         addObject(new NoWalkZone(200, 100), 460, 220);
+        
+        //Checkout
         addObject(new NoWalkZone(100, 40), 100, 345);
         
-        final Shelf shelf = new Shelf(5);
+        Shelf shelf = new Shelf(5);
         addObject(shelf, 460, 240);
         
-        InteractZone buyingZone = new InteractZone(40, 40) {
-            Shelf s = shelf;
-            @Override
-            public void interact(Customer c) {
-                if(s.hasItems() && c.getState() == CustomerState.BUYING) {
-                    s.takeOne();
-                    c.setState(CustomerState.PAYING);
-                }
-            }
-            
-            @Override
-            public void interact(Player p) {
-                
-            }
-        };
-        
-        InteractZone payingZone = new InteractZone(40, 40) {
-            @Override
-            public void interact(Customer c) {
-                if(c.getState() == CustomerState.PAYING) {
-                    c.setState(CustomerState.LEAVING);
-                }
-            }
-        };
-        
-        InteractZone leavingZone = new InteractZone(200, 60) {
-            @Override
-            public void interact(Customer c) {
-                if(c.getState() == CustomerState.LEAVING) {
-                    getWorld().removeObject(c);
-                }
-            }
-        };
+        ItemPickUpZone buyingZone = new ItemPickUpZone(shelf);
+        PayingZone payingZone = new PayingZone();
+        TillZone tillZone = new TillZone(payingZone);
+        LeavingZone leavingZone = new LeavingZone();
         
         addObject(buyingZone, 460, 290);
         addObject(payingZone, 170, 345);
+        addObject(tillZone, 100, 385);
         addObject(leavingZone, 300, 30);
+        
         prepTargets();
         
         addObject(new Customer(targets[1]), 300, 15);
-        
+        addObject(new Player(), 300, 200);
     }
     
     private void prepTargets() {

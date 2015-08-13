@@ -20,11 +20,13 @@ public abstract class ActorExtra extends Actor
      * @param p The offset relative to the ActorExtra's centre.
      */
     public void attach(GreenfootImage i, Point p) {
-        images.add(new AttachedImage(i, p));
-
-        if(getWorld() != null) {
-            addImagesToWorld();
-        }
+        attach(new AttachedImage(i, p));
+    }
+    
+    public void attach(AttachedImage ai) {
+        images.add(ai);
+        
+        if(getWorld() != null) addImagesToWorld();
     }
     
     public List<AttachedImage> getImages() {

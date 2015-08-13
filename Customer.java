@@ -10,7 +10,7 @@ public class Customer extends CollidingActor
 {    
     final int walkSpeed = 2;
     
-    GreenfootImage stateImg;
+    AttachedImage stateImg;
     Status happiness;
     CustomerState currentState;
     
@@ -26,8 +26,9 @@ public class Customer extends CollidingActor
         img.drawRect(0,0, 39, 99);
         setImage(img);
         
+        stateImg = new AttachedImage(new Point(0, -10));
         setState(CustomerState.BUYING);
-        attach(stateImg, new Point(0,-10));
+        attach(stateImg);
         
         StatBar happinessBar = new StatBar(100);
         happiness =  new Status(100, happinessBar);
@@ -45,8 +46,8 @@ public class Customer extends CollidingActor
         currentState = s;
         waiting = false;
         
-        stateImg = new GreenfootImage(currentState.getAbbrev(), 20,
-                Color.WHITE, new Color(0,0,0,0));
+        stateImg.setImage(new GreenfootImage(currentState.getAbbrev(), 20,
+                Color.WHITE, new Color(0,0,0,0)));
     }
 
     public CustomerState getState() {

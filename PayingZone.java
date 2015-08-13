@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class PayingZone extends InteractZone
 {
     TillZone t;
+    Customer current;
 
     /**
      * Creates a new PayingZone with an associated TillZone. Customers can only

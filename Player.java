@@ -62,6 +62,7 @@ public class Player extends CollidingActor
         //If we leave the TillZone, reset the checkout process
         if(iz == null || !(iz instanceof TillZone)) {
             checkoutTimeline.jumpTo(0);
+            detach(checkoutBar);
         }
     }    
     

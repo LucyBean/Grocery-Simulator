@@ -66,11 +66,11 @@ public class Customer extends CollidingActor
     {
         if(t != null) {
             moveTowards(t, walkSpeed);
-            if(intersects(t)) t = t.getNext(currentState);
+            if(!isWaiting() && intersects(t)) t = t.getNext(currentState);
         }
 
         InteractZone iz = (InteractZone) getOneIntersectingObject(InteractZone.class);
-        if(iz != null) iz.interact(this);      
+        if(iz != null) iz.interact(this);
         
         if(waiting) happiness.decrement();
     }

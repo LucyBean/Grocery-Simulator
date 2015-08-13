@@ -8,17 +8,15 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class TillZone extends InteractZone
 {
-    PayingZone p;
-    
     /**
      * Creates a new TillZone for an associated PayingZone.
      * @param payZone Customers in this PayingZone will be able to pay for items.
      */    
-    public TillZone(PayingZone payZone) {
+    public TillZone() {
         super(40, 40);
-        
-        p = payZone;
     }
     
-    
+    public boolean manned() {
+        return (getOneObjectAtOffset(0,0,Player.class) != null);
+    }
 }

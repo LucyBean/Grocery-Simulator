@@ -42,6 +42,9 @@ public class Player extends CollidingActor
         if(Greenfoot.isKeyDown(right)) {
             move(Direction.RIGHT, walkSpeed);
         }
+        
+        InteractZone iz = (InteractZone) getOneIntersectingObject(InteractZone.class);
+        if(iz != null) iz.interact(this);
     }    
     
     @Override

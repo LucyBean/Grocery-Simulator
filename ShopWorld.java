@@ -31,8 +31,8 @@ public class ShopWorld extends WorldExtra
         addObject(shelf, 460, 240);
 
         ItemPickUpZone buyingZone = new ItemPickUpZone(shelf);
-        PayingZone payingZone = new PayingZone();
-        TillZone tillZone = new TillZone(payingZone);
+        TillZone tillZone = new TillZone();
+        PayingZone payingZone = new PayingZone(tillZone);
         LeavingZone leavingZone = new LeavingZone();
 
         addObject(buyingZone, 460, 290);

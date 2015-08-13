@@ -32,10 +32,10 @@ public class ItemPickUpZone extends InteractZone
     }
 
     /*
-     * TODO: If the associated shelf is not full, the player will refill it.
+     * Shelf refilled when the player touches it.
      */
     @Override
     public void interact(Player p) {
-
+        s.fill();
     }
 }

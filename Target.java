@@ -8,39 +8,54 @@ import java.awt.Color;
  */
 public class Target extends Actor
 {
-    Target nextBuying;
-    Target nextPaying;
-    Target nextLeaving;
-    
-    public Target() {
-        GreenfootImage img = new GreenfootImage(10, 10);
-        img.setColor(Color.BLACK);
-        img.fill();
+    CustomerState[] custStates = CustomerState.values();
+    ShopItemType[] itemTypes = ShopItemType.values();
+    int maxNum = custStates.length - 1 + itemTypes.length;
+    Target[] targets = new Target[maxNum];
+
+    public Target(int num) {
+        GreenfootImage img = new GreenfootImage(" " + num + " ", 14, Color.WHITE, Color.BLACK);
         setImage(img);
     }
-    
-    public void setBuying(Target t) {
-        nextBuying = t;
+
+    public Target() {
+        setImage(new GreenfootImage(10, 10));
     }
-    
-    public void setPaying(Target t) {
-        nextPaying = t;
+
+    /**
+     * Sets the next target that routes a Customer based on their current CustomerState and
+     * current ShopItemType. When CustomerState != BUYING, ShopItemType can be left
+     * as null.
+     */
+    public void setNext(CustomerState c, ShopItemType item, Target t) {
+        int index = stateToNum(c, item);
     }
-    
-    public void setLeaving(Target t) {
-        nextLeaving = t;
-    }
-    
-    public Target getNext(CustomerState p) {
-        switch(p) {
-            case BUYING:
-                return nextBuying;
-            case PAYING:
-                return nextPaying;
-            case LEAVING:
-                return nextLeaving;
-        }
+
+    public Target getNext(Customer c) {
+        CustomerState cs = c.getState();
+        ShopItemType nextItem = c.getNextItem();
         
         return null;
+    }
+
+    /*
+     * BUYING must be the first entry in CustomerState for this to work.
+     */
+    private int stateToNum(CustomerState c, ShopItemType s) {
+        int currentIndex = 0;
+        if(c == CustomerState.BUYING) {
+            for(int i = 0; i < itemTypes.length; i++) {
+                if (s == itemTypes[i]) {
+                    return i;
+                }
+            }
+        }
+        for(int i = 1; i < custStates.length; i++) {
+            if (c == custStates[i]) {
+                return i + itemTypes.length - 1;
+            }
+        }
+        
+        return -1;
     }
 }

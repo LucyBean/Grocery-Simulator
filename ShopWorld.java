@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ShopWorld extends WorldExtra
 {
-    Target[] targets = new Target[5];
+    Target[] targets = new Target[8];
 
     /**
      * Constructor for objects of class ShopWorld.
@@ -27,20 +27,27 @@ public class ShopWorld extends WorldExtra
         //Checkout
         addObject(new NoWalkZone(100, 40), 100, 345);
 
-        Shelf shelf = new Shelf(5, ShopItemType.PINK);
-        addObject(shelf, 460, 240);
-        
-        Shelf shelf2 = new Shelf(5, ShopItemType.BLUE);
-        addObject(shelf2, 140, 240);
+        Shelf shelfP = new Shelf(5, ShopItemType.PINK);
+        Shelf shelfB = new Shelf(5, ShopItemType.BLUE);
+        Shelf shelfO = new Shelf(6, ShopItemType.ORANGE);
+        Shelf shelfR = new Shelf(6, ShopItemType.RED);
+        addObject(shelfP, 460, 240);
+        addObject(shelfB, 140, 240);
+        addObject(shelfO, 100, 90);
+        addObject(shelfR, 500, 90);
 
-        ItemPickUpZone itemZone = new ItemPickUpZone(shelf);
-        ItemPickUpZone itemZone2 = new ItemPickUpZone(shelf2);
+        ItemPickUpZone itemZoneP = new ItemPickUpZone(shelfP);
+        ItemPickUpZone itemZoneB = new ItemPickUpZone(shelfB);
+        ItemPickUpZone itemZoneO = new ItemPickUpZone(shelfO);
+        ItemPickUpZone itemZoneR = new ItemPickUpZone(shelfR);
         TillZone tillZone = new TillZone();
         PayingZone payingZone = new PayingZone(tillZone);
         LeavingZone leavingZone = new LeavingZone();
 
-        addObject(itemZone, 460, 280);
-        addObject(itemZone2, 140, 280);
+        addObject(itemZoneP, 460, 280);
+        addObject(itemZoneB, 140, 280);
+        addObject(itemZoneO, 100, 130);
+        addObject(itemZoneR, 500, 130);
         addObject(payingZone, 160, 345);
         addObject(tillZone, 100, 375);
         addObject(leavingZone, 300, 30);
@@ -48,7 +55,7 @@ public class ShopWorld extends WorldExtra
         prepTargets();
 
         for(int i = 0; i < 8; i++) {
-            addObject(new Customer(targets[1]), 300, 15);
+            addObject(new Customer(targets[0]), 300, 15);
         }
         
         addPlayer();
@@ -56,10 +63,10 @@ public class ShopWorld extends WorldExtra
 
     private void prepTargets() {
         for(int i = 0; i < targets.length; i++) {
-            targets[i] = new Target();
+            targets[i] = new Target(i);
         }
 
-        targets[0].setBuying(targets[1]);
+        /*targets[0].setBuying(targets[1]);
         targets[1].setBuying(targets[2]);
         targets[3].setBuying(targets[2]);
         targets[4].setBuying(targets[2]);
@@ -72,11 +79,11 @@ public class ShopWorld extends WorldExtra
         targets[1].setLeaving(targets[0]);
         targets[2].setLeaving(targets[1]);
         targets[3].setLeaving(targets[1]);
-        targets[4].setLeaving(targets[1]);
+        targets[4].setLeaving(targets[1]);*/
 
-        addObject(targets[0], 300, 15);
-        addObject(targets[1], 300, 310);
-        addObject(targets[2], 460, 280);
+        addObject(targets[0], 300, 75);
+        addObject(targets[1], 300, 295);
+        addObject(targets[2], 460, 270);
         addObject(targets[3], 400, 350);
         addObject(targets[4], 150, 350);
     }

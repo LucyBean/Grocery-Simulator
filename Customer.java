@@ -14,6 +14,8 @@ public class Customer extends CollidingActor
     Status happiness;
     CustomerState currentState;
     CustomerBusyState currentBusyState = CustomerBusyState.NONE;
+    
+    ShopItemType nextItem;
 
     Target t;
 
@@ -52,6 +54,10 @@ public class Customer extends CollidingActor
         return currentState;
     }
     
+    public ShopItemType getNextItem() {
+        return nextItem;
+    }
+    
     public void startWaiting() {
         currentBusyState = CustomerBusyState.WAITING;
     }
@@ -72,7 +78,7 @@ public class Customer extends CollidingActor
     {
         if(t != null) {
             moveTowards(t, walkSpeed);
-            if(!isBusy() && intersects(t)) t = t.getNext(currentState);
+            if(!isBusy() && intersects(t)) t = t.getNext(this);
         }
 
         InteractZone iz = (InteractZone) getOneIntersectingObject(InteractZone.class);

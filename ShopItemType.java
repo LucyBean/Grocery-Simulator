@@ -2,7 +2,7 @@ import java.awt.Color;
 import greenfoot.GreenfootImage;
 
 public enum ShopItemType {
-    PINK (Color.MAGENTA), BLUE (Color.BLUE);
+    PINK (Color.MAGENTA), BLUE (Color.BLUE), RED (Color.RED), ORANGE (Color.ORANGE);
     
     GreenfootImage img;
     

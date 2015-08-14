@@ -8,12 +8,9 @@ import java.awt.Color;
  */
 public class ShopItem extends Actor
 {
-    public ShopItem() {
-        GreenfootImage img = new GreenfootImage(20, 20);
-        img.setColor(Color.MAGENTA);
-        img.fill();
-        img.setColor(Color.WHITE);
-        img.drawRect(0,0,19,19);
-        setImage(img);
+    ShopItemType t;
+    public ShopItem(ShopItemType type) {
+        t = type;
+        setImage(t.getImage());
     }
 }

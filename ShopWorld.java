@@ -27,15 +27,20 @@ public class ShopWorld extends WorldExtra
         //Checkout
         addObject(new NoWalkZone(100, 40), 100, 345);
 
-        Shelf shelf = new Shelf(5);
+        Shelf shelf = new Shelf(5, ShopItemType.PINK);
         addObject(shelf, 460, 240);
+        
+        Shelf shelf2 = new Shelf(5, ShopItemType.BLUE);
+        addObject(shelf2, 140, 240);
 
-        ItemPickUpZone buyingZone = new ItemPickUpZone(shelf);
+        ItemPickUpZone itemZone = new ItemPickUpZone(shelf);
+        ItemPickUpZone itemZone2 = new ItemPickUpZone(shelf2);
         TillZone tillZone = new TillZone();
         PayingZone payingZone = new PayingZone(tillZone);
         LeavingZone leavingZone = new LeavingZone();
 
-        addObject(buyingZone, 460, 290);
+        addObject(itemZone, 460, 280);
+        addObject(itemZone2, 140, 280);
         addObject(payingZone, 160, 345);
         addObject(tillZone, 100, 375);
         addObject(leavingZone, 300, 30);

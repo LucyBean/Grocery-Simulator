@@ -9,11 +9,13 @@ import java.awt.Color;
 public class Shelf extends Actor
 {
     ShopItem[] items;
+    ShopItemType itemType;
     int spacing = 10;
     int remaining = 0;
 
-    public Shelf(int size) {
+    public Shelf(int size, ShopItemType type) {
         items = new ShopItem[size];
+        itemType = type;
 
         GreenfootImage img = new GreenfootImage(size*30 + spacing, 10);
         img.setColor(Color.BLACK);
@@ -31,7 +33,7 @@ public class Shelf extends Actor
     public void fill() {
         for(int i = 0; i < items.length; i++) {
             if (items[i] == null) {
-                items[i] = new ShopItem();
+                items[i] = new ShopItem(itemType);
             }
             int bw = items[i].getImage().getWidth();
             int bh = items[i].getImage().getHeight();

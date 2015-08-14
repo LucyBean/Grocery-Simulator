@@ -11,7 +11,7 @@ public class ItemPickUpZone extends InteractZone
     Shelf s;
 
     public ItemPickUpZone(Shelf associatedShelf) {
-        super(40, 40);
+        super(20, 20);
         s = associatedShelf;
     }
 

@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=associatedShelf
+comment0.target=ItemPickUpZone(Shelf)
+comment1.params=c
+comment1.target=void\ interact(Customer)
+comment1.text=\r\n\ If\ the\ associated\ shelf\ has\ an\ item\ available,\ the\ customer\ will\ pick\r\n\ one\ up\ and\ transiting\ to\ a\ PAYING\ state.\r\n
+comment2.params=p
+comment2.target=void\ interact(Player)
+comment2.text=\r\n\ Shelf\ refilled\ when\ the\ player\ touches\ it.\r\n
+numComments=3

@@ -6,7 +6,7 @@ import java.awt.Color;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class InteractZone extends Zone
+public abstract class InteractZone extends Zone
 {
     public InteractZone(int width, int height) {
         super(width, height, Color.ORANGE);

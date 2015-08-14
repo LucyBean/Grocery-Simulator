@@ -8,10 +8,20 @@ import java.awt.Color;
  */
 public class Player extends CollidingActor
 {
-    String up = ",";
-    String down = "o";
-    String left = "a";
-    String right = "e";
+    final String up = ",";
+    final String down = "o";
+    final String left = "a";
+    final String right = "e";
+    
+    Countdown actTimer = new Countdown();
+    Timeline actTimeline = new Timeline();
+    int CHECKOUT_TIME = 100;
+    int REFILL_TIME = 50;
+    Status checkout = new Status(CHECKOUT_TIME, 0);
+    AttachedImage checkoutBar = new AttachedImage(checkout.getStatBar(), new Point(0, -50));
+    Status refill = new Status(REFILL_TIME, 0);
+    AttachedImage refillBar = new AttachedImage(refill.getStatBar(), new Point(0, -50));
+    
     
     final int walkSpeed = 4;
     
@@ -28,6 +38,12 @@ public class Player extends CollidingActor
         setCollider(collider, new Point(0, 20));
     }
     
+    @Override
+    public void addedToWorld(World w) {
+        super.addedToWorld(w);
+        getWorld().addObject(actTimer);
+    }
+    
     public void act() 
     {
         if(Greenfoot.isKeyDown(up)) {
@@ -42,10 +58,62 @@ public class Player extends CollidingActor
         if(Greenfoot.isKeyDown(right)) {
             move(Direction.RIGHT, walkSpeed);
         }
+        
+        InteractZone iz = (InteractZone) collider.getOneIntersecting(InteractZone.class);
+        if(iz != null) {
+            iz.interact(this);
+        }
+        //If we leave an InteractZone reset the act timer
+        if(iz == null) {
+            actTimeline.jumpTo(0);
+            detach(checkoutBar);
+            detach(refillBar);
+        }
     }    
     
     @Override
     public boolean isObjectAtEdge(Direction d) {
         return isObjectAtEdge(d, NoWalkZone.class);
+    }
+    
+    /**
+     * Starts the checkout for customer c
+     */
+    public void checkOut(Customer c) {
+        switch(actTimeline.getCurrent()) {
+            case 0:
+                attach(checkoutBar);
+                actTimer.countFrom(checkout.getMax());
+                actTimeline.advance();
+                break;
+            case 1:
+                if(actTimer.isFinished()) actTimeline.advance();
+                checkout.setVal(CHECKOUT_TIME - actTimer.getVal());
+                break;
+            case 2:
+                c.setState(CustomerState.LEAVING);
+                detach(checkoutBar);
+                actTimeline.jumpTo(0);
+                break;                
+        }
+    }
+    
+    public void refillShelf(Shelf s) {
+        switch(actTimeline.getCurrent()) {
+            case 0:
+                attach(refillBar);
+                actTimer.countFrom(refill.getMax());
+                actTimeline.advance();
+                break;
+            case 1:
+                if(actTimer.isFinished()) actTimeline.advance();
+                refill.setVal(REFILL_TIME - actTimer.getVal());
+                break;
+            case 2:
+                s.fill();
+                detach(refillBar);
+                actTimeline.jumpTo(0);
+                break;
+        }
     }
 }

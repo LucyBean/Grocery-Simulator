@@ -11,8 +11,9 @@ public class Customer extends CollidingActor
     final int walkSpeed = 2;
     
     AttachedImage stateImg;
-    Mood happiness;
+    Status happiness;
     CustomerState currentState;
+    CustomerBusyState currentBusyState = CustomerBusyState.NONE;
 
     Target t;
 
@@ -24,13 +25,12 @@ public class Customer extends CollidingActor
         img.drawRect(0,0, 39, 99);
         setImage(img);
         
-        stateImg = new AttachedImage(new Point(0,-10));
+        stateImg = new AttachedImage(new Point(0, -10));
         setState(CustomerState.BUYING);
         attach(stateImg);
         
-        StatBar happinessBar = new StatBar(new Point(0, -40), 100);
-        happiness =  new Mood(100, happinessBar);
-        attach(happinessBar);
+        happiness =  new Status(100);
+        attach(happiness.getStatBar(), new Point(0, -40));
 
         t = initial;
 
@@ -42,6 +42,7 @@ public class Customer extends CollidingActor
      */
     public void setState(CustomerState s) {
         currentState = s;
+        currentBusyState = CustomerBusyState.NONE;
         
         stateImg.setImage(new GreenfootImage(currentState.getAbbrev(), 20,
                 Color.WHITE, new Color(0,0,0,0)));
@@ -50,23 +51,34 @@ public class Customer extends CollidingActor
     public CustomerState getState() {
         return currentState;
     }
+    
+    public void startWaiting() {
+        currentBusyState = CustomerBusyState.WAITING;
+    }
+    
+    public void startInteracting() {
+        currentBusyState = CustomerBusyState.INTERACTING;
+    }
+    
+    public boolean isBusy() {
+        return (currentBusyState != CustomerBusyState.NONE);
+    }
+    
+    public boolean isWaiting() {
+        return (currentBusyState == CustomerBusyState.WAITING);
+    }
 
     public void act() 
     {
         if(t != null) {
             moveTowards(t, walkSpeed);
-
-            if(intersects(t)) {
-                t = t.getNext(currentState);
-            }
+            if(!isBusy() && intersects(t)) t = t.getNext(currentState);
         }
 
         InteractZone iz = (InteractZone) getOneIntersectingObject(InteractZone.class);
-        if(iz != null) {
-            iz.interact(this);
-        }      
+        if(iz != null) iz.interact(this);
         
-        happiness.setVal(happiness.getVal() - 1);
+        if(isWaiting()) happiness.decrement();
     }
     
     /*
@@ -81,36 +93,12 @@ public class Customer extends CollidingActor
         boolean isCustomer = false;
         if(c != null
                 && currentState != CustomerState.LEAVING
-                && c.getState() == currentState) isCustomer = true;
+                && c.getState() == currentState) {
+                    isCustomer = true;
+                    if(c.isBusy()) startWaiting();
+                }
         
         return isWall || isCustomer;
     }
 }
 
-class Mood {
-    int moodVal;
-    final int max;
-    StatBar bar;
-    
-    public Mood(int max, StatBar bar) {
-        this(max, max, bar);
-    }
-    
-    public Mood(int max, int init, StatBar bar) {
-        this.max = max;
-        this.bar = bar;
-        setVal(init);
-    }
-    
-    public int getVal() {
-        return moodVal;
-    }
-    
-    public void setVal(int val) {
-        if(val < 0) val = 0;
-        if(val > max) val = max;
-        moodVal = val;
-        
-        bar.update(moodVal);
-    }
-}

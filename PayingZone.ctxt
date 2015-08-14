@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.params=tillZone
+comment0.target=PayingZone(TillZone)
+comment0.text=\r\n\ Creates\ a\ new\ PayingZone\ with\ an\ associated\ TillZone.\ Customers\ can\ only\r\n\ pay\ at\ this\ PayingZone\ if\ the\ associated\ TillZone\ is\ manned.\r\n\ @param\ tillZone\ Associated\ TillZone\r\n
+comment1.params=c
+comment1.target=void\ interact(Customer)
+numComments=2

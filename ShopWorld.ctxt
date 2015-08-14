@@ -2,14 +2,6 @@
 comment0.params=
 comment0.target=ShopWorld()
 comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ ShopWorld.\r\n\ \r\n
-comment1.params=c
-comment1.target=void\ interact(Customer)
-comment2.params=p
-comment2.target=void\ interact(Player)
-comment3.params=c
-comment3.target=void\ interact(Customer)
-comment4.params=c
-comment4.target=void\ interact(Customer)
-comment5.params=
-comment5.target=void\ prepTargets()
-numComments=6
+comment1.params=
+comment1.target=void\ prepTargets()
+numComments=2

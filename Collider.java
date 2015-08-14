@@ -27,6 +27,10 @@ public class Collider extends ActorExtra
         setImage(img);
     }
     
+    public Actor getOneIntersecting(java.lang.Class cls) {
+        return getOneIntersectingObject(cls);
+    }
+    
     public Actor getAssociatedActor() {
         return object;
     }

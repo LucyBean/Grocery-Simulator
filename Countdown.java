@@ -27,4 +27,6 @@ public class Countdown extends Actor
     }
 
     public boolean isFinished() { return finished; }
+    
+    public int getVal() { return count; }
 }

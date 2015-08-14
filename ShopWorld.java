@@ -8,7 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ShopWorld extends WorldExtra
 {
-    Target[] targets = new Target[8];
+    Target[] targets = new Target[10];
+    Countdown customerSpawnTimer = new Countdown();
 
     /**
      * Constructor for objects of class ShopWorld.
@@ -52,12 +53,10 @@ public class ShopWorld extends WorldExtra
         addObject(tillZone, 100, 375);
         addObject(leavingZone, 300, 30);
 
+        addObject(customerSpawnTimer);
+
         prepTargets();
 
-        for(int i = 0; i < 8; i++) {
-            addObject(new Customer(targets[0]), 300, 15);
-        }
-        
         addPlayer();
     }
 
@@ -66,16 +65,40 @@ public class ShopWorld extends WorldExtra
             targets[i] = new Target(i);
         }
 
-        targets[0].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[1]);
+        targets[0].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[5]);
         targets[1].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[2]);
+        targets[2].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[2]);
         targets[3].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[2]);
         targets[4].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[2]);
-        
-        targets[0].setNext(CustomerState.PAYING, targets[1]);
-        targets[1].setNext(CustomerState.PAYING, targets[4]);
+        targets[5].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[1]);
+        targets[6].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[1]);
+        targets[7].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[5]);
+        targets[8].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[5]);
+        targets[9].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[0]);
+
+        targets[0].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[5]);
+        targets[1].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[6]);
+        targets[2].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[1]);
+        targets[3].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[6]);
+        targets[4].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[1]);
+        targets[5].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[1]);
+        targets[6].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[6]);
+        targets[7].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[5]);
+        targets[8].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[5]);
+        targets[9].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[0]);
+
+        targets[0].setNext(CustomerState.PAYING, targets[5]);
+        targets[1].setNext(CustomerState.PAYING, targets[3]);
         targets[2].setNext(CustomerState.PAYING, targets[3]);
         targets[3].setNext(CustomerState.PAYING, targets[4]);
-        
+        targets[4].setNext(CustomerState.PAYING, targets[4]);
+        targets[5].setNext(CustomerState.PAYING, targets[1]);
+        targets[6].setNext(CustomerState.PAYING, targets[1]);
+        targets[7].setNext(CustomerState.PAYING, targets[5]);
+        targets[8].setNext(CustomerState.PAYING, targets[5]);
+        targets[9].setNext(CustomerState.PAYING, targets[0]);
+
+        targets[0].setNext(CustomerState.LEAVING, targets[9]);
         targets[1].setNext(CustomerState.LEAVING, targets[0]);
         targets[2].setNext(CustomerState.LEAVING, targets[1]);
         targets[3].setNext(CustomerState.LEAVING, targets[1]);
@@ -86,5 +109,20 @@ public class ShopWorld extends WorldExtra
         addObject(targets[2], 460, 270);
         addObject(targets[3], 400, 350);
         addObject(targets[4], 150, 350);
+        addObject(targets[5], 300, 145);
+        addObject(targets[6], 140, 270);
+        addObject(targets[7], 100, 120);
+        addObject(targets[8], 500, 120);
+        addObject(targets[9], 300, 15);
+    }
+
+    public void act() {
+        if(customerSpawnTimer.isFinished()) {
+            int roll = Greenfoot.getRandomNumber(100);
+            if(roll < (36 - numberOfCustomers * numberOfCustomers)) {
+                addObject(new Customer(targets[0]), 300, 15);
+                customerSpawnTimer.countFrom(100);
+            }
+        }
     }
 }

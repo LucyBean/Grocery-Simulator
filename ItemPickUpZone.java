@@ -36,6 +36,8 @@ public class ItemPickUpZone extends InteractZone
      */
     @Override
     public void interact(Player p) {
-        s.fill();
+        if(!s.isFull()) {
+            p.refillShelf(s);
+        }
     }
 }

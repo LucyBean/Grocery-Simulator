@@ -10,4 +10,6 @@ comment3.target=boolean\ isObjectAtEdge(Direction)
 comment4.params=c
 comment4.target=void\ checkOut(Customer)
 comment4.text=\r\n\ Starts\ the\ checkout\ for\ customer\ c\r\n
-numComments=5
+comment5.params=s
+comment5.target=void\ refillShelf(Shelf)
+numComments=6

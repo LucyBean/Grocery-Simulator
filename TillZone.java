@@ -13,10 +13,10 @@ public class TillZone extends InteractZone
      * @param payZone Customers in this PayingZone will be able to pay for items.
      */    
     public TillZone() {
-        super(40, 40);
+        super(20, 20);
     }
     
     public boolean manned() {
-        return (getOneObjectAtOffset(0,-10,Player.class) != null);
+        return (isTouching(Player.class));
     }
 }

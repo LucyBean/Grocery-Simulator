@@ -37,7 +37,7 @@ public class ShopWorld extends WorldExtra
 
         addObject(buyingZone, 460, 290);
         addObject(payingZone, 160, 345);
-        addObject(tillZone, 100, 385);
+        addObject(tillZone, 100, 375);
         addObject(leavingZone, 300, 30);
 
         prepTargets();

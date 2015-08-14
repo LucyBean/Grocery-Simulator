@@ -16,6 +16,10 @@ class Status {
         setVal(init);
     }
     
+    public int getMax() {
+        return max;
+    }
+    
     public int getVal() {
         return statVal;
     }

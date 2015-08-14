@@ -29,13 +29,26 @@ public class Target extends Actor
      */
     public void setNext(CustomerState c, ShopItemType item, Target t) {
         int index = stateToNum(c, item);
+        targets[index] = t;
+    }
+    
+    public void setNext(CustomerState c, Target t) {
+        if(c == CustomerState.BUYING) {
+            for(int i = 0; i < itemTypes.length; i++) {
+                setNext(c, itemTypes[i], t);
+            }
+        } else setNext(c, null, t);
     }
 
+    /**
+     * Returns the next routing target for the given Customer based on their state.
+     */
     public Target getNext(Customer c) {
         CustomerState cs = c.getState();
         ShopItemType nextItem = c.getNextItem();
         
-        return null;
+        int index = stateToNum(cs, nextItem);
+        return targets[index];
     }
 
     /*

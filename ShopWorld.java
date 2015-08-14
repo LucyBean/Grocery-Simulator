@@ -66,20 +66,20 @@ public class ShopWorld extends WorldExtra
             targets[i] = new Target(i);
         }
 
-        /*targets[0].setBuying(targets[1]);
-        targets[1].setBuying(targets[2]);
-        targets[3].setBuying(targets[2]);
-        targets[4].setBuying(targets[2]);
-
-        targets[0].setPaying(targets[1]);
-        targets[1].setPaying(targets[4]);
-        targets[2].setPaying(targets[3]);
-        targets[3].setPaying(targets[4]);
-
-        targets[1].setLeaving(targets[0]);
-        targets[2].setLeaving(targets[1]);
-        targets[3].setLeaving(targets[1]);
-        targets[4].setLeaving(targets[1]);*/
+        targets[0].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[1]);
+        targets[1].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[2]);
+        targets[3].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[2]);
+        targets[4].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[2]);
+        
+        targets[0].setNext(CustomerState.PAYING, targets[1]);
+        targets[1].setNext(CustomerState.PAYING, targets[4]);
+        targets[2].setNext(CustomerState.PAYING, targets[3]);
+        targets[3].setNext(CustomerState.PAYING, targets[4]);
+        
+        targets[1].setNext(CustomerState.LEAVING, targets[0]);
+        targets[2].setNext(CustomerState.LEAVING, targets[1]);
+        targets[3].setNext(CustomerState.LEAVING, targets[1]);
+        targets[4].setNext(CustomerState.LEAVING, targets[1]);
 
         addObject(targets[0], 300, 75);
         addObject(targets[1], 300, 295);

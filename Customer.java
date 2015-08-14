@@ -15,7 +15,7 @@ public class Customer extends CollidingActor
     CustomerState currentState;
     CustomerBusyState currentBusyState = CustomerBusyState.NONE;
     
-    ShopItemType nextItem;
+    ShopItemType nextItem = ShopItemType.PINK;
 
     Target t;
 

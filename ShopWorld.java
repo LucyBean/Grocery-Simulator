@@ -17,6 +17,14 @@ public class ShopWorld extends WorldExtra
      */
     public ShopWorld()
     {    
+        addObjects();
+
+        prepTargets();
+
+        addPlayer();
+    }
+    
+    private void addObjects() {
         //Top wall
         addObject(new NoWalkZone(200, 120), 100, 60);
         addObject(new NoWalkZone(200, 120), 500, 60);
@@ -54,10 +62,6 @@ public class ShopWorld extends WorldExtra
         addObject(leavingZone, 300, 30);
 
         addObject(customerSpawnTimer);
-
-        prepTargets();
-
-        addPlayer();
     }
 
     private void prepTargets() {
@@ -86,6 +90,28 @@ public class ShopWorld extends WorldExtra
         targets[7].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[5]);
         targets[8].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[5]);
         targets[9].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[0]);
+        
+        targets[0].setNext(CustomerState.BUYING, ShopItemType.RED, targets[5]);
+        targets[1].setNext(CustomerState.BUYING, ShopItemType.RED, targets[5]);
+        targets[2].setNext(CustomerState.BUYING, ShopItemType.RED, targets[1]);
+        targets[3].setNext(CustomerState.BUYING, ShopItemType.RED, targets[1]);
+        targets[4].setNext(CustomerState.BUYING, ShopItemType.RED, targets[1]);
+        targets[5].setNext(CustomerState.BUYING, ShopItemType.RED, targets[8]);
+        targets[6].setNext(CustomerState.BUYING, ShopItemType.RED, targets[1]);
+        targets[7].setNext(CustomerState.BUYING, ShopItemType.RED, targets[5]);
+        targets[8].setNext(CustomerState.BUYING, ShopItemType.RED, targets[8]);
+        targets[9].setNext(CustomerState.BUYING, ShopItemType.RED, targets[0]);
+        
+        targets[0].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[5]);
+        targets[1].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[5]);
+        targets[2].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[1]);
+        targets[3].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[1]);
+        targets[4].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[1]);
+        targets[5].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[7]);
+        targets[6].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[1]);
+        targets[7].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[7]);
+        targets[8].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[5]);
+        targets[9].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[0]);
 
         targets[0].setNext(CustomerState.PAYING, targets[5]);
         targets[1].setNext(CustomerState.PAYING, targets[3]);
@@ -117,6 +143,10 @@ public class ShopWorld extends WorldExtra
     }
 
     public void act() {
+        spawnCustomers();
+    }
+    
+    private void spawnCustomers() {
         if(customerSpawnTimer.isFinished()) {
             int roll = Greenfoot.getRandomNumber(100);
             if(roll < (36 - numberOfCustomers * numberOfCustomers)) {

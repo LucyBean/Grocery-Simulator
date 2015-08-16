@@ -10,7 +10,10 @@ public abstract class CollidingActor extends ActorExtra
 {
     Collider collider;
     Point colliderPoint;
-    
+
+    double errX = 0.0;
+    double errY = 0.0;
+
     /**
      * Position for collider relative to actor's centre.
      * @param c Collider object to be attached.
@@ -20,23 +23,23 @@ public abstract class CollidingActor extends ActorExtra
         collider = c;
         colliderPoint = p;
     }
-    
+
     public Collider getCollider() {
         return collider;
     }
-    
+
     /**
      * Also causes the attached Collider (if any) to be removed as well as the CollidingActor.
      */
     @Override
     public void addedToWorld(World w) {
         super.addedToWorld(w);
-        
+
         if (collider != null) {
             w.addObject(collider, getX() + colliderPoint.x, getY() + colliderPoint.y);
         }
     }
-    
+
     /**
      * Checks the row/column of pixels immediately adjacent to the CollidingActor in the
      * specified direction for a Collider object, then returns the associated Actor. Pixels
@@ -107,7 +110,7 @@ public abstract class CollidingActor extends ActorExtra
 
         return null;
     }
-    
+
     /**
      * Detects whether there is a Collider object with an associated Actor of the
      * specified class in the immediately adjacent row or column of pixels in the
@@ -166,7 +169,7 @@ public abstract class CollidingActor extends ActorExtra
             }
         }
     }
-    
+
     /*
      * Also causes the associated Collider to be moved.
      */
@@ -175,7 +178,7 @@ public abstract class CollidingActor extends ActorExtra
         super.setLocation(x,y);
         if (collider != null) collider.setLocation(x + colliderPoint.x, y + colliderPoint.y);
     }
-    
+
     /**
      * Moves towards the specified Actor (as the crow flies) using precise collision checking.
      * The CollidingActor may move too far or not far enough, due to storing the current
@@ -185,18 +188,32 @@ public abstract class CollidingActor extends ActorExtra
      * @param amount The maximum distance to move.
      */
     public void moveTowards(Actor target, int amount) {
+
         int dY = target.getY() - getY();
         int dX = target.getX() - getX();
-        
+
         double distance = Math.sqrt(dY * dY + dX * dX);
-        
+
         //ignore small distances
         if(distance <= 0.1) return;
-        
+
         double dx = dX * amount / distance;
-        double dy = dY * amount / distance;    
+        double dy = dY * amount / distance;
         
-        move(Direction.RIGHT, (int)dx);
-        move(Direction.DOWN, (int)dy);
+        //Calculate the accumulated error and adjust for it if necessary
+        int dxi = (int) dx;
+        int dyi = (int) dy;
+
+        errX += dx - dxi;
+        errY += dy - dy;
+        
+        dxi += (int) errX;
+        dyi += (int) errY;
+        
+        errX -= (int) errX;
+        errY -= (int) errY;
+
+        move(Direction.RIGHT, dxi);
+        move(Direction.DOWN, dyi);
     }
 }

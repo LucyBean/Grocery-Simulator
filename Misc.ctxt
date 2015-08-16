@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.params=number\ min\ max
+comment0.target=int[]\ rollInts(int,\ int,\ int)
+comment0.text=\r\n\ Rolls\ a\ number\ of\ integers\ and\ guarantees\ them\ to\ all\ be\ different\!\ Inclusive\r\n\ of\ min\ and\ max.\ If\ number\ >\ (max\ -\ min\ +\ 1)\ then\ the\ max\ val\ will\ be\ repeated.\r\n\ Numbers\ will\ be\ sorted.\r\n
+numComments=1

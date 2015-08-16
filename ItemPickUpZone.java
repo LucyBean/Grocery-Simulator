@@ -11,7 +11,7 @@ public class ItemPickUpZone extends InteractZone
     Shelf s;
 
     public ItemPickUpZone(Shelf associatedShelf) {
-        super(40, 40);
+        super(20, 20);
         s = associatedShelf;
     }
 
@@ -21,13 +21,13 @@ public class ItemPickUpZone extends InteractZone
      */
     @Override
     public void interact(Customer c) {
-        if(c.getState() == CustomerState.BUYING) {
-            if(s.hasItems()) {
-                s.takeOne();
-                c.setState(CustomerState.PAYING);
-            } else {
-                c.startWaiting();
-            }
+        if(c.getState() == CustomerState.BUYING && s.getType() == c.getNextItem()) {
+                if(s.hasItems()) {
+                    ShopItem i = s.takeOne();
+                    c.receiveItem(i);
+                } else {
+                    c.startWaiting();
+                }
         }
     }
 

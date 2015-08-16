@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=c
+comment0.target=ShopItemType(java.awt.Color)
+comment1.params=
+comment1.target=greenfoot.GreenfootImage\ getImage()
+comment2.params=n
+comment2.target=ShopItemType\ numToType(int)
+numComments=3

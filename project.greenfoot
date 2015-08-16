@@ -1,5 +1,9 @@
 #Greenfoot properties
+<<<<<<< HEAD
 #Sun Aug 16 17:08:03 BST 2015
+=======
+#Sun Aug 16 14:42:30 BST 2015
+>>>>>>> origin/master
 target24.type=ClassTarget
 target16.name=InteractZone
 target13.editor.width=1040
@@ -28,9 +32,15 @@ dependency45.from=ShopWorld
 target17.typeParameters=
 dependency20.from=ActorExtra
 dependency27.to=Point
+<<<<<<< HEAD
 dependency80.to=Customer
 dependency72.from=Player
 target6.name=PayingZone
+=======
+target6.name=PayingZone
+dependency80.to=Customer
+dependency72.from=Player
+>>>>>>> origin/master
 target3.naviview.expanded=false
 dependency74.to=Shelf
 dependency60.type=UsesDependency
@@ -64,9 +74,15 @@ target25.typeParameters=
 dependency34.from=CollidingActor
 dependency5.to=Direction
 target19.height=50
+<<<<<<< HEAD
 target4.y=10
 target23.width=90
 target5.editor.width=900
+=======
+target5.editor.width=900
+target4.y=10
+target23.width=90
+>>>>>>> origin/master
 target4.x=170
 target5.showInterface=false
 target26.editor.height=600
@@ -84,9 +100,13 @@ dependency19.from=Shelf
 dependency46.from=ItemPickUpZone
 class.LeavingZone.superclass=InteractZone
 dependency21.from=AttachedImage
+target7.name=CustomerBusyState
 dependency73.from=Customer
 target14.width=80
+<<<<<<< HEAD
 target7.name=CustomerBusyState
+=======
+>>>>>>> origin/master
 target2.width=80
 dependency11.to=Collider
 target14.height=50
@@ -138,10 +158,17 @@ dependency22.from=WorldExtra
 dependency35.to=CollidingActor
 target9.typeParameters=
 target27.height=50
+<<<<<<< HEAD
 dependency74.from=Player
 target8.name=Direction
 target27.width=100
 target7.y=670
+=======
+target8.name=Direction
+dependency74.from=Player
+target7.y=670
+target27.width=100
+>>>>>>> origin/master
 target7.x=100
 target29.editor.height=600
 target3.height=50
@@ -162,14 +189,21 @@ target22.height=50
 dependency37.type=UsesDependency
 target6.editor.width=1040
 target6.width=90
+<<<<<<< HEAD
 target17.editor.height=600
+=======
+>>>>>>> origin/master
 target7.typeParameters=
+target17.editor.height=600
 dependency30.to=Customer
 target7.editor.width=900
 target7.editor.y=20
 target27.type=ClassTarget
-dependency2.type=UsesDependency
 target7.editor.x=40
+<<<<<<< HEAD
+=======
+dependency2.type=UsesDependency
+>>>>>>> origin/master
 target19.name=TillZone
 dependency24.to=Point
 target21.name=CustomerState
@@ -196,8 +230,13 @@ dependency59.to=TillZone
 target24.naviview.expanded=false
 target14.naviview.expanded=false
 dependency23.from=WorldExtra
+<<<<<<< HEAD
 dependency75.from=ShopWorld
 target9.name=ItemPickUpZone
+=======
+target9.name=ItemPickUpZone
+dependency75.from=ShopWorld
+>>>>>>> origin/master
 target15.editor.width=900
 dependency50.from=ShopWorld
 target13.height=50
@@ -247,15 +286,19 @@ target13.editor.x=-8
 dependency77.type=UsesDependency
 dependency52.type=UsesDependency
 target15.type=ClassTarget
-target10.showInterface=false
 target6.naviview.expanded=false
+target10.showInterface=false
 target16.naviview.expanded=false
 dependency49.from=ItemPickUpZone
 dependency43.to=Player
 dependency24.from=Customer
 target29.editor.y=20
+<<<<<<< HEAD
 target29.editor.x=40
+=======
+>>>>>>> origin/master
 version=2.6.0
+target29.editor.x=40
 target22.width=80
 dependency76.from=Customer
 target26.height=50
@@ -319,6 +362,7 @@ target10.name=Target
 dependency25.from=Customer
 dependency77.from=ShopWorld
 target5.editor.height=600
+dependency77.from=ShopWorld
 dependency52.from=LeavingZone
 target18.y=250
 target18.x=190
@@ -388,8 +432,12 @@ dependency41.type=UsesDependency
 target24.x=200
 dependency39.to=NoWalkZone
 target4.typeParameters=
-target18.typeParameters=
 target8.y=130
+target18.typeParameters=
+<<<<<<< HEAD
+target8.y=130
+=======
+>>>>>>> origin/master
 target8.x=100
 dependency13.from=Customer
 target7.type=EnumTarget
@@ -472,8 +520,12 @@ target11.editor.x=-8
 dependency29.type=UsesDependency
 target5.height=50
 dependency12.to=Target
-dependency56.type=UsesDependency
 target3.y=730
+dependency56.type=UsesDependency
+<<<<<<< HEAD
+target3.y=730
+=======
+>>>>>>> origin/master
 target3.x=130
 target19.type=ClassTarget
 target13.editor.height=616
@@ -564,8 +616,13 @@ target25.naviview.expanded=false
 dependency44.type=UsesDependency
 target29.showInterface=false
 target6.y=610
+<<<<<<< HEAD
 target12.editor.width=1040
 target6.x=10
+=======
+target6.x=10
+target12.editor.width=1040
+>>>>>>> origin/master
 dependency31.to=AttachedImage
 package.numDependencies=84
 dependency71.type=UsesDependency
@@ -578,13 +635,21 @@ target19.naviview.expanded=false
 target19.y=610
 target19.x=110
 dependency68.from=Player
-dependency43.from=ShopWorld
 target9.height=50
+<<<<<<< HEAD
 target25.editor.width=1040
 target11.y=130
 target11.x=190
 dependency70.from=Player
 target4.name=Slidable
+=======
+dependency43.from=ShopWorld
+target25.editor.width=1040
+target11.y=130
+target4.name=Slidable
+dependency70.from=Player
+target11.x=190
+>>>>>>> origin/master
 dependency19.to=ShopItem
 target21.editor.height=600
 dependency72.to=AttachedImage
@@ -599,8 +664,13 @@ target27.editor.x=40
 mainWindow.height=616
 dependency8.from=Player
 target10.editor.y=20
+<<<<<<< HEAD
 target10.editor.x=40
 target28.height=50
+=======
+target28.height=50
+target10.editor.x=40
+>>>>>>> origin/master
 dependency20.to=AttachedImage
 target4.height=50
 dependency58.type=UsesDependency
@@ -618,8 +688,11 @@ dependency57.from=TillZone
 dependency61.to=InteractZone
 target21.editor.y=20
 target21.editor.x=40
-dependency32.from=CollidingActor
 target7.naviview.expanded=false
+<<<<<<< HEAD
+=======
+dependency32.from=CollidingActor
+>>>>>>> origin/master
 dependency84.from=Customer
 target23.height=50
 dependency18.type=UsesDependency
@@ -632,16 +705,22 @@ target20.showInterface=false
 dependency72.type=UsesDependency
 target10.type=ClassTarget
 dependency49.to=CustomerState
-dependency17.from=Customer
 target4.editor.width=900
+dependency17.from=Customer
 dependency69.from=WorldExtra
 target3.editor.y=-8
 target3.editor.x=-8
 dependency44.from=ShopWorld
 target15.height=50
+<<<<<<< HEAD
 target25.y=10
 dependency71.from=Player
 target5.name=ShopItemType
+=======
+target5.name=ShopItemType
+dependency71.from=Player
+target25.y=10
+>>>>>>> origin/master
 target25.x=70
 target19.width=80
 target7.width=140
@@ -650,20 +729,28 @@ target29.name=AttachedImage
 target13.typeParameters=
 target9.y=550
 target9.x=10
+<<<<<<< HEAD
 dependency50.to=ItemPickUpZone
+=======
+>>>>>>> origin/master
 target1.naviview.expanded=false
+dependency50.to=ItemPickUpZone
 target11.naviview.expanded=false
 class.CustomerBusyState.superclass=
-dependency9.from=ActorExtra
 target1.y=370
+dependency9.from=ActorExtra
 target1.x=120
 dependency44.to=CustomerState
-dependency59.type=UsesDependency
 target3.width=80
+dependency59.type=UsesDependency
 target5.naviview.expanded=false
 dependency34.type=UsesDependency
-target10.height=50
 target14.y=430
+target10.height=50
+<<<<<<< HEAD
+target14.y=430
+=======
+>>>>>>> origin/master
 target14.x=10
 target15.editor.height=600
 class.Timeline.superclass=

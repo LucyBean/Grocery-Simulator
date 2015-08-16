@@ -1,4 +1,4 @@
 #BlueJ class context
-comment0.params=
-comment0.target=ShopItem()
+comment0.params=type
+comment0.target=ShopItem(ShopItemType)
 numComments=1

@@ -10,7 +10,7 @@ import java.util.LinkedList;
  */
 public class Customer extends CollidingActor
 {    
-    final int walkSpeed = 2;
+    final int walkSpeed = 4;
 
     AttachedImage stateImg;
     Status happiness;
@@ -27,12 +27,12 @@ public class Customer extends CollidingActor
     public Customer(Target initial) {
         setImg();
         attachImages();
-        
+        selectShoppingList();
+
         t = initial;
-        shoppingList = selectShoppingList();
         setCollider(new Collider(28, 18, this), new Point(0, 15));
     }
-    
+
     private void setImg() {
         GreenfootImage img = new GreenfootImage(30, 50);
         img.setColor(Color.RED);
@@ -40,9 +40,9 @@ public class Customer extends CollidingActor
         img.setColor(Color.BLACK);
         img.drawRect(0,0, 39, 99);
         setImage(img);
-        
+
     }
-    
+
     private void attachImages() {
         stateImg = new AttachedImage(new Point(0, -10));
         setState(CustomerState.BUYING);
@@ -51,27 +51,23 @@ public class Customer extends CollidingActor
         happiness =  new Status(100);
         attach(happiness.getStatBar(), new Point(0, -40));
     }
-    
-    private Queue<ShopItemType> selectShoppingList() {
-        LinkedList<ShopItemType> list = new LinkedList<ShopItemType>();
-        
-        int roll = Greenfoot.getRandomNumber(4);
-        switch(roll) {
-            case 0:
-            list.add(ShopItemType.PINK);
-            break;
-            case 1:
-            list.add(ShopItemType.BLUE);
-            break;
-            case 2:
-            list.add(ShopItemType.RED);
-            break;
-            case 3:
-            list.add(ShopItemType.ORANGE);
-            break;
+
+    private void selectShoppingList() {
+        shoppingList = new LinkedList<ShopItemType>();
+
+        int listLen = Greenfoot.getRandomNumber(4);
+        int[] items = Misc.rollInts(listLen, 0, 3);
+        for(int i = 0; i < items.length; i++) {
+            shoppingList.add(ShopItemType.numToType(items[i]));
         }
-        
-        return list;
+
+        /*
+         * If a Customer (for some reason) has an initial shopping list of zero, they will
+         * immediately be put in the PAYING state.
+         */
+        if(listLen == 0) {
+            setState(CustomerState.PAYING);
+        }
     }
 
     /*
@@ -89,9 +85,23 @@ public class Customer extends CollidingActor
         return currentState;
     }
 
+    /**
+     * Returns the next item the Customer's shopping list.
+     */
     public ShopItemType getNextItem() {
-        if(shoppingList != null) return shoppingList.peek();
+        if(!shoppingList.isEmpty()) return shoppingList.peek();
         else return null;
+    }
+
+    /**
+     * Method to be called when a Customer receives an item.
+     */
+    public void receiveItem(ShopItem si) {
+        shoppingList.remove();
+        currentBusyState = CustomerBusyState.NONE;
+        if(shoppingList.isEmpty()) {
+            setState(CustomerState.PAYING);
+        }
     }
 
     public void startWaiting() {
@@ -125,7 +135,7 @@ public class Customer extends CollidingActor
 
     /*
      * Overriden ensure that Customers collide only with NoWalkZones, and other Customers
-     * with the same state (unless the Customer is leaving).
+     * with the same state and trying to get the same item.
      * This allows for queueing behaviours.
      */
     @Override
@@ -133,7 +143,10 @@ public class Customer extends CollidingActor
         boolean isWall = isObjectAtEdge(d, NoWalkZone.class);
         Customer c = (Customer) getOneObjectAtEdge(d, Customer.class);
         boolean isCustomer = false;
-        if(c != null && c.getState() == currentState && c.isBusy()) {
+        if(c != null
+                && c.getState() == getState()
+                && c.getNextItem() == getNextItem()
+                && c.isBusy()) {
             isCustomer = true;
             startWaiting();
         }

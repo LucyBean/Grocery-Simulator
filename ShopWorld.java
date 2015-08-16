@@ -92,7 +92,7 @@ public class ShopWorld extends WorldExtra
         targets[9].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[0]);
         
         targets[0].setNext(CustomerState.BUYING, ShopItemType.RED, targets[5]);
-        targets[1].setNext(CustomerState.BUYING, ShopItemType.RED, targets[5]);
+        targets[1].setNext(CustomerState.BUYING, ShopItemType.RED, targets[0]);
         targets[2].setNext(CustomerState.BUYING, ShopItemType.RED, targets[1]);
         targets[3].setNext(CustomerState.BUYING, ShopItemType.RED, targets[1]);
         targets[4].setNext(CustomerState.BUYING, ShopItemType.RED, targets[1]);
@@ -103,7 +103,7 @@ public class ShopWorld extends WorldExtra
         targets[9].setNext(CustomerState.BUYING, ShopItemType.RED, targets[0]);
         
         targets[0].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[5]);
-        targets[1].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[5]);
+        targets[1].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[0]);
         targets[2].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[1]);
         targets[3].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[1]);
         targets[4].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[1]);

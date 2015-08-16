@@ -17,4 +17,19 @@ public enum ShopItemType {
     public GreenfootImage getImage() {
         return img;
     }
+    
+    public static ShopItemType numToType(int n) {
+        switch (n) {
+            case 0:
+                return PINK;
+            case 1:
+                return BLUE;
+            case 2:
+                return RED;
+            case 3:
+                return ORANGE;
+        }
+        
+        return null;
+    }
 }

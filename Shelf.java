@@ -54,6 +54,10 @@ public class Shelf extends Actor
     public boolean isFull() {
         return remaining == items.length;
     }
+    
+    public ShopItemType getType() {
+        return itemType;
+    }
 
     public ShopItem takeOne() {
         if(remaining == 0) return null;

@@ -4,4 +4,5 @@ comment0.target=PayingZone(TillZone)
 comment0.text=\r\n\ Creates\ a\ new\ PayingZone\ with\ an\ associated\ TillZone.\ Customers\ can\ only\r\n\ pay\ at\ this\ PayingZone\ if\ the\ associated\ TillZone\ is\ manned.\r\n\ @param\ tillZone\ Associated\ TillZone\r\n
 comment1.params=c
 comment1.target=void\ interact(Customer)
+comment1.text=\r\n\ The\ Customer\ interacts\ with\ the\ PayingZone.\ This\ will\ cause\ the\ Player\ (if\ any)\r\n\ at\ the\ attached\ TillZone\ to\ start\ the\ checkout\ process\ for\ this\ Customer.\r\n\ When\ a\ Customer\ arrives\ at\ an\ empty\ PayingZone,\ they\ will\ take\ the\ PayingZone\ and\r\n\ other\ Customers\ will\ wait.\ When\ they\ leave,\ they\ will\ free\ the\ PayingZone.\r\n
 numComments=2

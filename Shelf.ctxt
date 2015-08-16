@@ -1,6 +1,6 @@
 #BlueJ class context
-comment0.params=size
-comment0.target=Shelf(int)
+comment0.params=size\ type
+comment0.target=Shelf(int,\ ShopItemType)
 comment1.params=w
 comment1.target=void\ addedToWorld(greenfoot.World)
 comment2.params=
@@ -10,5 +10,7 @@ comment3.target=boolean\ hasItems()
 comment4.params=
 comment4.target=boolean\ isFull()
 comment5.params=
-comment5.target=ShopItem\ takeOne()
-numComments=6
+comment5.target=ShopItemType\ getType()
+comment6.params=
+comment6.target=ShopItem\ takeOne()
+numComments=7

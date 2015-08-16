@@ -8,7 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ShopWorld extends WorldExtra
 {
-    Target[] targets = new Target[5];
+    Target[] targets = new Target[10];
+    Countdown customerSpawnTimer = new Countdown();
 
     /**
      * Constructor for objects of class ShopWorld.
@@ -16,6 +17,14 @@ public class ShopWorld extends WorldExtra
      */
     public ShopWorld()
     {    
+        addObjects();
+
+        prepTargets();
+
+        addPlayer();
+    }
+    
+    private void addObjects() {
         //Top wall
         addObject(new NoWalkZone(200, 120), 100, 60);
         addObject(new NoWalkZone(200, 120), 500, 60);
@@ -27,52 +36,123 @@ public class ShopWorld extends WorldExtra
         //Checkout
         addObject(new NoWalkZone(100, 40), 100, 345);
 
-        Shelf shelf = new Shelf(5);
-        addObject(shelf, 460, 240);
+        Shelf shelfP = new Shelf(5, ShopItemType.PINK);
+        Shelf shelfB = new Shelf(5, ShopItemType.BLUE);
+        Shelf shelfO = new Shelf(6, ShopItemType.ORANGE);
+        Shelf shelfR = new Shelf(6, ShopItemType.RED);
+        addObject(shelfP, 460, 240);
+        addObject(shelfB, 140, 240);
+        addObject(shelfO, 100, 90);
+        addObject(shelfR, 500, 90);
 
-        ItemPickUpZone buyingZone = new ItemPickUpZone(shelf);
+        ItemPickUpZone itemZoneP = new ItemPickUpZone(shelfP);
+        ItemPickUpZone itemZoneB = new ItemPickUpZone(shelfB);
+        ItemPickUpZone itemZoneO = new ItemPickUpZone(shelfO);
+        ItemPickUpZone itemZoneR = new ItemPickUpZone(shelfR);
         TillZone tillZone = new TillZone();
         PayingZone payingZone = new PayingZone(tillZone);
         LeavingZone leavingZone = new LeavingZone();
 
-        addObject(buyingZone, 460, 290);
+        addObject(itemZoneP, 460, 280);
+        addObject(itemZoneB, 140, 280);
+        addObject(itemZoneO, 100, 130);
+        addObject(itemZoneR, 500, 130);
         addObject(payingZone, 160, 345);
         addObject(tillZone, 100, 375);
         addObject(leavingZone, 300, 30);
 
-        prepTargets();
-
-        for(int i = 0; i < 8; i++) {
-            addObject(new Customer(targets[1]), 300, 15);
-        }
-        
-        addPlayer();
+        addObject(customerSpawnTimer);
     }
 
     private void prepTargets() {
         for(int i = 0; i < targets.length; i++) {
-            targets[i] = new Target();
+            targets[i] = new Target(i);
         }
 
-        targets[0].setBuying(targets[1]);
-        targets[1].setBuying(targets[2]);
-        targets[3].setBuying(targets[2]);
-        targets[4].setBuying(targets[2]);
+        targets[0].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[5]);
+        targets[1].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[2]);
+        targets[2].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[2]);
+        targets[3].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[2]);
+        targets[4].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[2]);
+        targets[5].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[1]);
+        targets[6].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[1]);
+        targets[7].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[5]);
+        targets[8].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[5]);
+        targets[9].setNext(CustomerState.BUYING, ShopItemType.PINK, targets[0]);
 
-        targets[0].setPaying(targets[1]);
-        targets[1].setPaying(targets[4]);
-        targets[2].setPaying(targets[3]);
-        targets[3].setPaying(targets[4]);
+        targets[0].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[5]);
+        targets[1].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[6]);
+        targets[2].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[1]);
+        targets[3].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[6]);
+        targets[4].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[1]);
+        targets[5].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[1]);
+        targets[6].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[6]);
+        targets[7].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[5]);
+        targets[8].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[5]);
+        targets[9].setNext(CustomerState.BUYING, ShopItemType.BLUE, targets[0]);
+        
+        targets[0].setNext(CustomerState.BUYING, ShopItemType.RED, targets[5]);
+        targets[1].setNext(CustomerState.BUYING, ShopItemType.RED, targets[0]);
+        targets[2].setNext(CustomerState.BUYING, ShopItemType.RED, targets[1]);
+        targets[3].setNext(CustomerState.BUYING, ShopItemType.RED, targets[1]);
+        targets[4].setNext(CustomerState.BUYING, ShopItemType.RED, targets[1]);
+        targets[5].setNext(CustomerState.BUYING, ShopItemType.RED, targets[8]);
+        targets[6].setNext(CustomerState.BUYING, ShopItemType.RED, targets[1]);
+        targets[7].setNext(CustomerState.BUYING, ShopItemType.RED, targets[5]);
+        targets[8].setNext(CustomerState.BUYING, ShopItemType.RED, targets[8]);
+        targets[9].setNext(CustomerState.BUYING, ShopItemType.RED, targets[0]);
+        
+        targets[0].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[5]);
+        targets[1].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[0]);
+        targets[2].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[1]);
+        targets[3].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[1]);
+        targets[4].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[1]);
+        targets[5].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[7]);
+        targets[6].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[1]);
+        targets[7].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[7]);
+        targets[8].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[5]);
+        targets[9].setNext(CustomerState.BUYING, ShopItemType.ORANGE, targets[0]);
 
-        targets[1].setLeaving(targets[0]);
-        targets[2].setLeaving(targets[1]);
-        targets[3].setLeaving(targets[1]);
-        targets[4].setLeaving(targets[1]);
+        targets[0].setNext(CustomerState.PAYING, targets[5]);
+        targets[1].setNext(CustomerState.PAYING, targets[3]);
+        targets[2].setNext(CustomerState.PAYING, targets[3]);
+        targets[3].setNext(CustomerState.PAYING, targets[4]);
+        targets[4].setNext(CustomerState.PAYING, targets[4]);
+        targets[5].setNext(CustomerState.PAYING, targets[1]);
+        targets[6].setNext(CustomerState.PAYING, targets[1]);
+        targets[7].setNext(CustomerState.PAYING, targets[5]);
+        targets[8].setNext(CustomerState.PAYING, targets[5]);
+        targets[9].setNext(CustomerState.PAYING, targets[0]);
 
-        addObject(targets[0], 300, 15);
-        addObject(targets[1], 300, 310);
-        addObject(targets[2], 460, 280);
+        targets[0].setNext(CustomerState.LEAVING, targets[9]);
+        targets[1].setNext(CustomerState.LEAVING, targets[0]);
+        targets[2].setNext(CustomerState.LEAVING, targets[1]);
+        targets[3].setNext(CustomerState.LEAVING, targets[1]);
+        targets[4].setNext(CustomerState.LEAVING, targets[1]);
+
+        addObject(targets[0], 300, 75);
+        addObject(targets[1], 300, 295);
+        addObject(targets[2], 460, 270);
         addObject(targets[3], 400, 350);
         addObject(targets[4], 150, 350);
+        addObject(targets[5], 300, 145);
+        addObject(targets[6], 140, 270);
+        addObject(targets[7], 100, 120);
+        addObject(targets[8], 500, 120);
+        addObject(targets[9], 300, 15);
+    }
+
+    public void act() {
+        spawnCustomers();
+    }
+    
+    private void spawnCustomers() {
+        if(customerSpawnTimer.isFinished()) {
+            int roll = Greenfoot.getRandomNumber(100);
+            if(roll < (36 - numberOfCustomers * numberOfCustomers)) {
+                addObject(new Customer(targets[0]), 300, 15);
+                customerSpawnTimer.countFrom(100);
+            }
+        }
     }
 }

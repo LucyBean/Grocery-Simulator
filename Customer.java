@@ -1,5 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.awt.Color;
+import java.util.Queue;
+import java.util.LinkedList;
 /**
  * Write a description of class Player here.
  * 
@@ -15,7 +17,7 @@ public class Customer extends CollidingActor
     CustomerState currentState;
     CustomerBusyState currentBusyState = CustomerBusyState.NONE;
 
-    ShopItemType nextItem;
+    Queue<ShopItemType> shoppingList;
 
     Target t;
 
@@ -24,13 +26,10 @@ public class Customer extends CollidingActor
      */
     public Customer(Target initial) {
         setImg();
-        
         attachImages();
         
         t = initial;
-
-        nextItem = selectNextItem();
-
+        shoppingList = selectShoppingList();
         setCollider(new Collider(28, 18, this), new Point(0, 15));
     }
     
@@ -53,20 +52,26 @@ public class Customer extends CollidingActor
         attach(happiness.getStatBar(), new Point(0, -40));
     }
     
-    private ShopItemType selectNextItem() {
+    private Queue<ShopItemType> selectShoppingList() {
+        LinkedList<ShopItemType> list = new LinkedList<ShopItemType>();
+        
         int roll = Greenfoot.getRandomNumber(4);
         switch(roll) {
             case 0:
-            return ShopItemType.PINK;
+            list.add(ShopItemType.PINK);
+            break;
             case 1:
-            return ShopItemType.BLUE;
+            list.add(ShopItemType.BLUE);
+            break;
             case 2:
-            return ShopItemType.RED;
+            list.add(ShopItemType.RED);
+            break;
             case 3:
-            return ShopItemType.ORANGE;
+            list.add(ShopItemType.ORANGE);
+            break;
         }
         
-        return null;
+        return list;
     }
 
     /*
@@ -85,7 +90,8 @@ public class Customer extends CollidingActor
     }
 
     public ShopItemType getNextItem() {
-        return nextItem;
+        if(shoppingList != null) return shoppingList.peek();
+        else return null;
     }
 
     public void startWaiting() {
